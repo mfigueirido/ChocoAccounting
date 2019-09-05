@@ -1,0 +1,17 @@
+syntax: glob
+*.suo
+*.cachefile
+*.user
+bin
+obj
+Thumbs.db
+Installation/EntityFramework.dll
+Installation/SqlLocalDB.msi
+Installation/TinyAccounting.exe
+Installation/TinyAccounting.exe.config
+Installation/EntityFramework.SqlServer.dll
+Installation/ChocoAccounting.exe
+Installation/ChocoAccounting.exe.config
+Installation/en/ChocoAccounting.resources.dll
+Installation/es/ChocoAccounting.resources.dll
+Installation/gl/ChocoAccounting.resources.dll

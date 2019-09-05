@@ -1,0 +1,479 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Account" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="AndFinally" xml:space="preserve">
+    <value>And finally</value>
+  </data>
+  <data name="AndThen" xml:space="preserve">
+    <value>And then</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Choco Accounting</value>
+  </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>Ascending</value>
+  </data>
+  <data name="CannotDeleteDatabaseInUseText" xml:space="preserve">
+    <value>The database is in use, so it can't be deleted.</value>
+  </data>
+  <data name="CannotDeleteDatabaseNotFoundText" xml:space="preserve">
+    <value>The database couldn't be found.</value>
+  </data>
+  <data name="CannotDeleteRelatedMovementsText" xml:space="preserve">
+    <value>The item can't be deleted because it has related movements.</value>
+  </data>
+  <data name="CannotLoadDatabaseNameRequiredText" xml:space="preserve">
+    <value>Please, type a database name.</value>
+  </data>
+  <data name="CannotUpdateNoRowSelectedText" xml:space="preserve">
+    <value>Please, select a movement to modify.</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="Database" xml:space="preserve">
+    <value>Database</value>
+  </data>
+  <data name="DatabaseAlreadyLoadedText" xml:space="preserve">
+    <value>This database is already loaded.</value>
+  </data>
+  <data name="DatabaseName" xml:space="preserve">
+    <value>Database name</value>
+  </data>
+  <data name="DataPickerWatermark" xml:space="preserve">
+    <value>Select a date</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="DateFrom" xml:space="preserve">
+    <value>Date from</value>
+  </data>
+  <data name="DateTo" xml:space="preserve">
+    <value>Date to</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteDatabaseCompleteText" xml:space="preserve">
+    <value>Database deleted.</value>
+  </data>
+  <data name="DeleteDatabaseQuestionText" xml:space="preserve">
+    <value>Are you sure you want to delete this database?</value>
+  </data>
+  <data name="DeleteRecordQuestionText" xml:space="preserve">
+    <value>Are you sure yo want to delete this record?</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>Descending</value>
+  </data>
+  <data name="Entity" xml:space="preserve">
+    <value>Entity</value>
+  </data>
+  <data name="Expense" xml:space="preserve">
+    <value>Expense</value>
+  </data>
+  <data name="FieldMustBeUniqueText" xml:space="preserve">
+    <value>Entered item already exists.</value>
+  </data>
+  <data name="FieldNotNumericToolTipText" xml:space="preserve">
+    <value>The field has an invalid format. It must be a numeric value.</value>
+  </data>
+  <data name="FieldRequiredToolTipText" xml:space="preserve">
+    <value>The field is empty. This is a required field.</value>
+  </data>
+  <data name="FieldsValidationFailedText" xml:space="preserve">
+    <value>Some fields aren't properly filled.</value>
+  </data>
+  <data name="Filtering" xml:space="preserve">
+    <value>Filtering</value>
+  </data>
+  <data name="GroupBy" xml:space="preserve">
+    <value>Group by</value>
+  </data>
+  <data name="Grouping" xml:space="preserve">
+    <value>Grouping</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Nº</value>
+  </data>
+  <data name="Income" xml:space="preserve">
+    <value>Income</value>
+  </data>
+  <data name="Load" xml:space="preserve">
+    <value>Load</value>
+  </data>
+  <data name="ManageDatabases" xml:space="preserve">
+    <value>Manage databases</value>
+  </data>
+  <data name="MessageBoxAttentionText" xml:space="preserve">
+    <value>Attention</value>
+  </data>
+  <data name="Modify" xml:space="preserve">
+    <value>Modify</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="NewDataToolTipText" xml:space="preserve">
+    <value>The value doesn't exist, so it will be created.</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="Person" xml:space="preserve">
+    <value>Person</value>
+  </data>
+  <data name="Remarks" xml:space="preserve">
+    <value>Remarks</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>Sort by</value>
+  </data>
+  <data name="Sorting" xml:space="preserve">
+    <value>Sorting</value>
+  </data>
+  <data name="Subcategory" xml:space="preserve">
+    <value>Subcategory</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="ViewExisting" xml:space="preserve">
+    <value>View existing</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Collapse</value>
+  </data>
+  <data name="CollapseToolTip" xml:space="preserve">
+    <value>Collapse all groups and subgroups</value>
+  </data>
+  <data name="CopyAll" xml:space="preserve">
+    <value>Copy all</value>
+  </data>
+  <data name="CopyAllToolTip" xml:space="preserve">
+    <value>Copy all rows to clipboard</value>
+  </data>
+  <data name="Expand" xml:space="preserve">
+    <value>Expand</value>
+  </data>
+  <data name="ExpandToolTip" xml:space="preserve">
+    <value>Expand all groups and subgroups</value>
+  </data>
+  <data name="MovementCount" xml:space="preserve">
+    <value>movement(s)</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="QuantityWithoutTax" xml:space="preserve">
+    <value>Q. w/o tax</value>
+  </data>
+  <data name="TaxPercentage" xml:space="preserve">
+    <value>Tax %</value>
+  </data>
+  <data name="AppConfig" xml:space="preserve">
+    <value>App config</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English (English)</value>
+  </data>
+  <data name="Galician" xml:space="preserve">
+    <value>Galician (Galego)</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Spanish" xml:space="preserve">
+    <value>Spanish (Español)</value>
+  </data>
+  <data name="PendingAbbreviation" xml:space="preserve">
+    <value>Pend.</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="TotalWithoutTax" xml:space="preserve">
+    <value>Total w/o tax</value>
+  </data>
+  <data name="NoEntity" xml:space="preserve">
+    <value>No entity</value>
+  </data>
+  <data name="NoPerson" xml:space="preserve">
+    <value>No person</value>
+  </data>
+  <data name="NoSubcategory" xml:space="preserve">
+    <value>No subcategory</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="ChemistsHerbalists" xml:space="preserve">
+    <value>Chemist's / Herbalist's</value>
+  </data>
+  <data name="Clothing" xml:space="preserve">
+    <value>Clothing</value>
+  </data>
+  <data name="Communications" xml:space="preserve">
+    <value>Communications</value>
+  </data>
+  <data name="CreateDefaultCategoriesQuestion" xml:space="preserve">
+    <value>Do you want to create default categories on this database? They will be created with the currently selected language.</value>
+  </data>
+  <data name="Doctor" xml:space="preserve">
+    <value>Doctor</value>
+  </data>
+  <data name="Donations" xml:space="preserve">
+    <value>Donations</value>
+  </data>
+  <data name="Energy" xml:space="preserve">
+    <value>Energy</value>
+  </data>
+  <data name="Fines" xml:space="preserve">
+    <value>Fines</value>
+  </data>
+  <data name="Fuel" xml:space="preserve">
+    <value>Fuel</value>
+  </data>
+  <data name="Gifts" xml:space="preserve">
+    <value>Gifts</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Insurances" xml:space="preserve">
+    <value>Insurances</value>
+  </data>
+  <data name="Internet" xml:space="preserve">
+    <value>Internet</value>
+  </data>
+  <data name="Leisure" xml:space="preserve">
+    <value>Leisure</value>
+  </data>
+  <data name="Loans" xml:space="preserve">
+    <value>Loans</value>
+  </data>
+  <data name="ManteinanceAndRepairs" xml:space="preserve">
+    <value>Manteinance and repairs</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Mobile</value>
+  </data>
+  <data name="Mortgage" xml:space="preserve">
+    <value>Mortgage</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="OtherIncomes" xml:space="preserve">
+    <value>Other incomes</value>
+  </data>
+  <data name="OtherShopping" xml:space="preserve">
+    <value>Other shopping</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="RegularShopping" xml:space="preserve">
+    <value>Regular shopping</value>
+  </data>
+  <data name="Rentals" xml:space="preserve">
+    <value>Rentals</value>
+  </data>
+  <data name="Salaries" xml:space="preserve">
+    <value>Salaries</value>
+  </data>
+  <data name="Taxes" xml:space="preserve">
+    <value>Taxes</value>
+  </data>
+  <data name="Tolls" xml:space="preserve">
+    <value>Tolls</value>
+  </data>
+  <data name="Transportation" xml:space="preserve">
+    <value>Transportation</value>
+  </data>
+  <data name="Vet" xml:space="preserve">
+    <value>Vet</value>
+  </data>
+  <data name="Water" xml:space="preserve">
+    <value>Water</value>
+  </data>
+  <data name="About_AppSubtitle" xml:space="preserve">
+    <value>Ultra fast and simple home accounting</value>
+  </data>
+  <data name="About_ConsiderDonatingLabel" xml:space="preserve">
+    <value>Choco Accounting is absolutely free to use. If you find this application useful please consider supporting its developers by making a donation.</value>
+  </data>
+  <data name="About_DevelopedBy" xml:space="preserve">
+    <value>Developed by</value>
+  </data>
+  <data name="About_DonateLink" xml:space="preserve">
+    <value>Donate</value>
+  </data>
+  <data name="About_GNULabel" xml:space="preserve">
+    <value>GNU General Public License:</value>
+  </data>
+  <data name="About_GNUText" xml:space="preserve">
+    <value>This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+            
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see http://www.gnu.org/licenses/</value>
+  </data>
+  <data name="About_SourceCodeLink" xml:space="preserve">
+    <value>Source Code</value>
+  </data>
+  <data name="About_Title" xml:space="preserve">
+    <value>About Choco Accounting</value>
+  </data>
+  <data name="About_WebsiteLink" xml:space="preserve">
+    <value>Website</value>
+  </data>
+</root>

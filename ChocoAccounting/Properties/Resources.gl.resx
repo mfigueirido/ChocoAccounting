@@ -1,0 +1,479 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Account" xml:space="preserve">
+    <value>Conta</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Accións</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Engadir</value>
+  </data>
+  <data name="AndFinally" xml:space="preserve">
+    <value>E finalmente</value>
+  </data>
+  <data name="AndThen" xml:space="preserve">
+    <value>E logo</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Choco Accounting</value>
+  </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>Ascendente</value>
+  </data>
+  <data name="CannotDeleteDatabaseInUseText" xml:space="preserve">
+    <value>A base de datos está en uso, así que non pode ser borrada.</value>
+  </data>
+  <data name="CannotDeleteDatabaseNotFoundText" xml:space="preserve">
+    <value>Non se puido atopar a base de datos.</value>
+  </data>
+  <data name="CannotDeleteRelatedMovementsText" xml:space="preserve">
+    <value>Non se pode eliminar este elemento porque ten movementos relacionados.</value>
+  </data>
+  <data name="CannotLoadDatabaseNameRequiredText" xml:space="preserve">
+    <value>Por favor, introduce un nome de base de datos.</value>
+  </data>
+  <data name="CannotUpdateNoRowSelectedText" xml:space="preserve">
+    <value>Por favor, selecciona un movemento para modificalo.</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Categoría</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Contraer</value>
+  </data>
+  <data name="CollapseToolTip" xml:space="preserve">
+    <value>Contraer tódolos grupos e subgrupos</value>
+  </data>
+  <data name="CopyAll" xml:space="preserve">
+    <value>Copiar todo</value>
+  </data>
+  <data name="CopyAllToolTip" xml:space="preserve">
+    <value>Copiar tódolos rexistros ao portapapeis</value>
+  </data>
+  <data name="Database" xml:space="preserve">
+    <value>Base de datos</value>
+  </data>
+  <data name="DatabaseAlreadyLoadedText" xml:space="preserve">
+    <value>Esta base de datos xa está cargada.</value>
+  </data>
+  <data name="DatabaseName" xml:space="preserve">
+    <value>Nome da base de datos</value>
+  </data>
+  <data name="DataPickerWatermark" xml:space="preserve">
+    <value>Selec. unha data</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="DateFrom" xml:space="preserve">
+    <value>Dende</value>
+  </data>
+  <data name="DateTo" xml:space="preserve">
+    <value>Ata</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="DeleteDatabaseCompleteText" xml:space="preserve">
+    <value>Base de datos borrada.</value>
+  </data>
+  <data name="DeleteDatabaseQuestionText" xml:space="preserve">
+    <value>¿Estás seguro de que queres borrar esta base de datos?</value>
+  </data>
+  <data name="DeleteRecordQuestionText" xml:space="preserve">
+    <value>¿Estás seguro de que queres borrar este rexistro?</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>Descendente</value>
+  </data>
+  <data name="Entity" xml:space="preserve">
+    <value>Entidade</value>
+  </data>
+  <data name="Expand" xml:space="preserve">
+    <value>Expandir</value>
+  </data>
+  <data name="ExpandToolTip" xml:space="preserve">
+    <value>Expandir tódolos grupos e subgrupos</value>
+  </data>
+  <data name="Expense" xml:space="preserve">
+    <value>Gasto</value>
+  </data>
+  <data name="FieldMustBeUniqueText" xml:space="preserve">
+    <value>O elemento introducido xa existe.</value>
+  </data>
+  <data name="FieldNotNumericToolTipText" xml:space="preserve">
+    <value>O campo ten un formato non válido. Debe ser un valor numérico.</value>
+  </data>
+  <data name="FieldRequiredToolTipText" xml:space="preserve">
+    <value>O campo está en branco. Este é un campo requirido.</value>
+  </data>
+  <data name="FieldsValidationFailedText" xml:space="preserve">
+    <value>Algúns campos non se cubriron correctamente.</value>
+  </data>
+  <data name="Filtering" xml:space="preserve">
+    <value>Filtrado</value>
+  </data>
+  <data name="GroupBy" xml:space="preserve">
+    <value>Agrupar por</value>
+  </data>
+  <data name="Grouping" xml:space="preserve">
+    <value>Agrupado</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Nº</value>
+  </data>
+  <data name="Income" xml:space="preserve">
+    <value>Ingreso</value>
+  </data>
+  <data name="Load" xml:space="preserve">
+    <value>Cargar</value>
+  </data>
+  <data name="ManageDatabases" xml:space="preserve">
+    <value>Xestionar bases de datos</value>
+  </data>
+  <data name="MessageBoxAttentionText" xml:space="preserve">
+    <value>Atención</value>
+  </data>
+  <data name="Modify" xml:space="preserve">
+    <value>Modificar</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Mes</value>
+  </data>
+  <data name="MovementCount" xml:space="preserve">
+    <value>movemento(s)</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="NewDataToolTipText" xml:space="preserve">
+    <value>O valor non existe, así que se creará.</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Non</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>Pendente</value>
+  </data>
+  <data name="Person" xml:space="preserve">
+    <value>Persoa</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Cantidade</value>
+  </data>
+  <data name="QuantityWithoutTax" xml:space="preserve">
+    <value>C. sen imposto</value>
+  </data>
+  <data name="Remarks" xml:space="preserve">
+    <value>Concepto</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>Ordear por</value>
+  </data>
+  <data name="Sorting" xml:space="preserve">
+    <value>Ordeación</value>
+  </data>
+  <data name="Subcategory" xml:space="preserve">
+    <value>Subcategoría</value>
+  </data>
+  <data name="TaxPercentage" xml:space="preserve">
+    <value>Imposto %</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="ViewExisting" xml:space="preserve">
+    <value>Ver existentes</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Ano</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Si</value>
+  </data>
+  <data name="AppConfig" xml:space="preserve">
+    <value>Configuración da aplicación</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>Inglés (English)</value>
+  </data>
+  <data name="Galician" xml:space="preserve">
+    <value>Galego (Galego)</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="Spanish" xml:space="preserve">
+    <value>Castelán (Español)</value>
+  </data>
+  <data name="PendingAbbreviation" xml:space="preserve">
+    <value>Pend.</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="TotalWithoutTax" xml:space="preserve">
+    <value>Total sen imposto</value>
+  </data>
+  <data name="NoEntity" xml:space="preserve">
+    <value>Sen entidade</value>
+  </data>
+  <data name="NoPerson" xml:space="preserve">
+    <value>Sen persoa</value>
+  </data>
+  <data name="NoSubcategory" xml:space="preserve">
+    <value>Sen subcategoría</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>Acerca de</value>
+  </data>
+  <data name="ChemistsHerbalists" xml:space="preserve">
+    <value>Farmacia / Herbolario</value>
+  </data>
+  <data name="Clothing" xml:space="preserve">
+    <value>Roupa e calzado</value>
+  </data>
+  <data name="Communications" xml:space="preserve">
+    <value>Comunicacións</value>
+  </data>
+  <data name="CreateDefaultCategoriesQuestion" xml:space="preserve">
+    <value>¿Queres crear as categorías por defecto nesta base de datos? Crearanse no idioma actualmente seleccionado.</value>
+  </data>
+  <data name="Doctor" xml:space="preserve">
+    <value>Médico</value>
+  </data>
+  <data name="Donations" xml:space="preserve">
+    <value>Doazóns</value>
+  </data>
+  <data name="Energy" xml:space="preserve">
+    <value>Enerxía</value>
+  </data>
+  <data name="Fines" xml:space="preserve">
+    <value>Multas</value>
+  </data>
+  <data name="Fuel" xml:space="preserve">
+    <value>Combustible</value>
+  </data>
+  <data name="Gifts" xml:space="preserve">
+    <value>Agasallos</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Fogar</value>
+  </data>
+  <data name="Insurances" xml:space="preserve">
+    <value>Seguros</value>
+  </data>
+  <data name="Internet" xml:space="preserve">
+    <value>Internet</value>
+  </data>
+  <data name="Leisure" xml:space="preserve">
+    <value>Ocio</value>
+  </data>
+  <data name="Loans" xml:space="preserve">
+    <value>Préstamos</value>
+  </data>
+  <data name="ManteinanceAndRepairs" xml:space="preserve">
+    <value>Mantemento e reparacións</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>Móbiles</value>
+  </data>
+  <data name="Mortgage" xml:space="preserve">
+    <value>Hipoteca</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Outros</value>
+  </data>
+  <data name="OtherIncomes" xml:space="preserve">
+    <value>Outros ingresos</value>
+  </data>
+  <data name="OtherShopping" xml:space="preserve">
+    <value>Outras compras</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Teléfono fixo</value>
+  </data>
+  <data name="RegularShopping" xml:space="preserve">
+    <value>Compra habitual</value>
+  </data>
+  <data name="Rentals" xml:space="preserve">
+    <value>Alugueres</value>
+  </data>
+  <data name="Salaries" xml:space="preserve">
+    <value>Nóminas</value>
+  </data>
+  <data name="Taxes" xml:space="preserve">
+    <value>Impostos</value>
+  </data>
+  <data name="Tolls" xml:space="preserve">
+    <value>Peaxes</value>
+  </data>
+  <data name="Transportation" xml:space="preserve">
+    <value>Transporte</value>
+  </data>
+  <data name="Vet" xml:space="preserve">
+    <value>Veterinario</value>
+  </data>
+  <data name="Water" xml:space="preserve">
+    <value>Auga</value>
+  </data>
+  <data name="About_AppSubtitle" xml:space="preserve">
+    <value>Contabilidade caseira ultra rápida e sinxela</value>
+  </data>
+  <data name="About_ConsiderDonatingLabel" xml:space="preserve">
+    <value>Choco Accounting é totalmente de balde. Se atopas esta aplicación útil, por favor considera apoiar aos desenvolvedores facendo unha doazón.</value>
+  </data>
+  <data name="About_DevelopedBy" xml:space="preserve">
+    <value>Desenvolvido por</value>
+  </data>
+  <data name="About_DonateLink" xml:space="preserve">
+    <value>Doar</value>
+  </data>
+  <data name="About_GNULabel" xml:space="preserve">
+    <value>Licenza Pública Xeral GNU:</value>
+  </data>
+  <data name="About_GNUText" xml:space="preserve">
+    <value>Este programa é software libre: podes redistribuílo e/ou modificalo
+en base aos termos da Licenza Pública Xeral GNU como está publicada
+pola Free Software Foundation, tanto a versión 3 da Licenza, coma
+(sendo a túa escolla) calquera versión posterior.
+
+Este programa está distribuído coa esperanza de que sexa útil,
+pero SEN NINGUNHA GARANTÍA; incluso sen a garantía implícita de
+COMERCIALIZACIÓN ou APTITUDE PARA UN FIN DETERMINADO. Le a
+Licenza Pública Xeral GNU para máis información.
+
+Deberías ter recibido unha copia da Licenza Pública Xeral GNU xunto
+a este programa. Se non é o caso, vai a http://www.gnu.org/licenses/</value>
+  </data>
+  <data name="About_SourceCodeLink" xml:space="preserve">
+    <value>Código fonte</value>
+  </data>
+  <data name="About_Title" xml:space="preserve">
+    <value>Acerca de Choco Accounting</value>
+  </data>
+  <data name="About_WebsiteLink" xml:space="preserve">
+    <value>Sitio web</value>
+  </data>
+</root>

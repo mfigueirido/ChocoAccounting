@@ -1,0 +1,663 @@
+﻿<!--
+    This file is part of Choco Accounting.
+
+    Choco Accounting is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Choco Accounting is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Choco Accounting. If not, see <http://www.gnu.org/licenses/>.
+-->
+<Window x:Class="ChocoAccounting.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ca="clr-namespace:ChocoAccounting"
+        mc:Ignorable="d"
+        Height="720" Width="1080" Closed="Window_Closed"
+        Title="{ca:Localization AppTitle}" Icon="AppIcon.ico">
+    <Window.Resources>
+        <ca:GroupQuantitySumConverter x:Key="groupSumQuantityConverter"/>
+        <ca:GroupQuantityWoTaxSumConverter x:Key="groupSumQuantityWoTaxConverter"/>
+        <ca:DecimalCultureConverter x:Key="decimalCultureConverter"/>
+        <ca:DateCultureConverter x:Key="dateCultureConverter"/>
+
+        <!--Editing controls style-->
+        <Style x:Key="movementEditingControl" TargetType="ItemsControl">
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <Grid Margin="0,0,5,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--End of editing controls style-->
+
+        <!--Vertical filters/config expander style-->
+        <Style x:Key="ExpanderRightHeaderStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border Padding="{TemplateBinding Padding}">
+                            <Grid x:Name="headerGrid" SnapsToDevicePixels="False" Cursor="Hand" Width="20" ToolTipService.InitialShowDelay="250" ToolTipService.ShowDuration="60000">
+                                <ContentControl Height="20" Width="20" Style="{StaticResource GearIcon}" x:Name="searchIcon"/>
+                                <Grid.ToolTip>
+                                    <ToolTip x:Name="gridToolTip" BorderBrush="Transparent" Background="Transparent" Placement="Center" HorizontalOffset="-40" Padding="0,0,0,0" Margin="0,0,0,0">
+                                        <ContentControl Style="{StaticResource GearIcon}" Height="100" Width="100"/>
+                                    </ToolTip>
+                                </Grid.ToolTip>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Visibility" TargetName="gridToolTip" Value="Hidden"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="headerGrid" Property="Background" Value="#19000000"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="false">
+                                <Setter TargetName="headerGrid" Property="Background" Value="Transparent"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter TargetName="gridToolTip" Property="HorizontalOffset" Value="40"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ExpanderLeftHeaderStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border Padding="{TemplateBinding Padding}">
+                            <Grid x:Name="headerGrid" SnapsToDevicePixels="False" Cursor="Hand"  Width="20" ToolTipService.InitialShowDelay="250" ToolTipService.ShowDuration="60000">
+                                <ContentControl Height="20" Width="20" Style="{StaticResource SearchIcon}" x:Name="searchIcon"/>
+                                <Grid.ToolTip>
+                                    <ToolTip x:Name="gridToolTip" BorderBrush="Transparent" Background="Transparent" Placement="Center" HorizontalOffset="40" Padding="0,0,0,0" Margin="0,0,0,0">
+                                        <ContentControl Style="{StaticResource SearchIcon}" Height="100" Width="100"/>
+                                    </ToolTip>
+                                </Grid.ToolTip>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Visibility" TargetName="gridToolTip" Value="Hidden"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="headerGrid" Property="Background" Value="#19000000"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="false">
+                                <Setter TargetName="headerGrid" Property="Background" Value="Transparent"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter TargetName="gridToolTip" Property="HorizontalOffset" Value="-40"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ExpanderFilterStyle" TargetType="{x:Type Expander}">
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Expander}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3" SnapsToDevicePixels="true">
+                            <DockPanel>
+                                <ToggleButton x:Name="HeaderSite" 
+                                              ContentTemplate="{TemplateBinding HeaderTemplate}" 
+                                              ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" 
+                                              Content="{TemplateBinding Header}" 
+                                              DockPanel.Dock="Top" 
+                                              Foreground="{TemplateBinding Foreground}" 
+                                              FontWeight="{TemplateBinding FontWeight}"  
+                                              FontStyle="{TemplateBinding FontStyle}" 
+                                              FontStretch="{TemplateBinding FontStretch}" 
+                                              FontSize="{TemplateBinding FontSize}" 
+                                              FontFamily="{TemplateBinding FontFamily}" 
+                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" 
+                                              Margin="1" 
+                                              MinWidth="0" 
+                                              MinHeight="0" 
+                                              Padding="{TemplateBinding Padding}" 
+                                              Style="{StaticResource ExpanderLeftHeaderStyle}" 
+                                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                <ContentPresenter x:Name="ExpandSite" 
+                                                  DockPanel.Dock="Bottom" 
+                                                  Focusable="false" 
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                                  
+                                                  Visibility="Collapsed" 
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                <!--Margin="{TemplateBinding Padding}"-->
+                            </DockPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsExpanded" Value="true">
+                                <Setter Property="Visibility" TargetName="ExpandSite" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="ExpandDirection" Value="Right">
+                                <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Right"/>
+                                <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Left"/>
+                                <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderRightHeaderStyle}"/>
+                            </Trigger>
+                            <Trigger Property="ExpandDirection" Value="Left">
+                                <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Left"/>
+                                <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Right"/>
+                                <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderLeftHeaderStyle}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!--End of vertical filters/config expander style-->
+
+        <Style x:Key="GroupStyle" TargetType="{x:Type GroupItem}">
+            <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                        <Expander Background="{TemplateBinding Property=Background}" Margin="{TemplateBinding Property=Margin}" Padding="0" IsExpanded="{Binding DataContext.SourceCollection.IsExpanded, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}, UpdateSourceTrigger=Explicit}">
+                            <Expander.Header>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition SharedSizeGroup="ColumnA"/>
+                                        <ColumnDefinition SharedSizeGroup="ColumnB"/>
+                                        <ColumnDefinition SharedSizeGroup="ColumnC"/>
+                                        <ColumnDefinition SharedSizeGroup="ColumnD"/>
+                                        <ColumnDefinition SharedSizeGroup="ColumnE"/>
+                                        <ColumnDefinition SharedSizeGroup="ColumnF"/>
+                                        <ColumnDefinition SharedSizeGroup="ColumnG"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Margin="0,0,5,0" Text="{Binding Name}"/>
+                                    <TextBlock Grid.Column="1" Margin="20,0,5,0" Text="{ca:Localization Total, StringFormat={}{0}:}"/>
+                                    <TextBlock Grid.Column="2" TextAlignment="Right" Margin="0,0,5,0">
+                                        <TextBlock.Text>
+                                            <MultiBinding x:Name="sumQuantityConverter" Converter="{StaticResource groupSumQuantityConverter}" StringFormat="{}{0:N2}">
+                                                <Binding Path="Items"/>
+                                                <Binding />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                    <TextBlock Grid.Column="3" Margin="20,0,5,0" Text="{ca:Localization TotalWithoutTax, StringFormat={}{0}:}"/>
+                                    <TextBlock Grid.Column="4" TextAlignment="Right" Margin="0,0,5,0">
+                                        <TextBlock.Text>
+                                            <MultiBinding x:Name="sumQuantityWoTaxConverter" Converter="{StaticResource groupSumQuantityWoTaxConverter}" StringFormat="{}{0:N2}">
+                                                <Binding Path="Items"/>
+                                                <Binding />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                    <TextBlock Grid.Column="5" Margin="10,0,0,0" Text="{Binding Path=ItemCount}" TextAlignment="Right"/>
+                                    <TextBlock Grid.Column="6" Text="{ca:Localization MovementCount, StringFormat={} {0}}"/>
+                                </Grid>
+                            </Expander.Header>
+                            <ItemsPresenter/>
+                        </Expander>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <DockPanel ClipToBounds="True">
+        <Expander ExpandDirection="Left" DockPanel.Dock="Left" Style="{DynamicResource ExpanderFilterStyle}" Padding="0" IsExpanded="True">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="5,0,0,0">
+                <StackPanel Width="205" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <Expander Header="{ca:Localization Filtering}" ExpandDirection="Down" IsExpanded="True" Margin="0,0,5,0">
+                        <StackPanel Margin="0,0,0,5">
+                            <TextBlock Text="{ca:Localization DateFrom}" Margin="0,5,0,5"/>
+                            <DatePicker Name="fromDatePickerFilter" SelectedDateChanged="fromDatePickerFilter_SelectedDateChanged"/>
+                            <TextBlock Text="{ca:Localization DateTo}" Margin="0,5,0,5"/>
+                            <DatePicker Name="toDatePickerFilter" SelectedDateChanged="toDatePickerFilter_SelectedDateChanged"/>
+                            <TextBlock Text="{ca:Localization Account}" Margin="0,5,0,5"/>
+                            <ListBox Name="accountListBoxFilter"  Height="66" SelectionChanged="accountListBoxFilter_SelectionChanged" SelectionMode="Multiple"/>
+                            <TextBlock Text="{ca:Localization Type}" Margin="0,5,0,5"/>
+                            <ListBox Name="typeListBoxFilter" Height="44" SelectionChanged="typeListBoxFilter_SelectionChanged" SelectionMode="Multiple"/>
+                            <TextBlock Text="{ca:Localization Category}" Margin="0,5,0,5"/>
+                            <ListBox Name="categoryListBoxFilter" Height="66" SelectionChanged="categoryListBoxFilter_SelectionChanged" SelectionMode="Multiple"/>
+                            <TextBlock Text="{ca:Localization Subcategory}" Margin="0,5,0,5"/>
+                            <ListBox Name="subcategoryListBoxFilter" Height="66" SelectionChanged="subcategoryListBoxFilter_SelectionChanged" SelectionMode="Multiple"/>
+                            <TextBlock Text="{ca:Localization Entity}" Margin="0,5,0,5"/>
+                            <ListBox Name="entityListBoxFilter" Height="66" SelectionChanged="entityListBoxFilter_SelectionChanged" SelectionMode="Multiple"/>
+                            <TextBlock Text="{ca:Localization Person}" Margin="0,5,0,5"/>
+                            <ListBox Name="personListBoxFilter" Height="66" SelectionChanged="personListBoxFilter_SelectionChanged" SelectionMode="Multiple"/>
+                            <TextBlock Text="{ca:Localization Remarks}" Margin="0,5,0,5"/>
+                            <TextBox Name="remarksTextBoxFilter" TextChanged="remarksTextBoxFilter_TextChanged" Height="23" VerticalContentAlignment="Center"/>
+                            <TextBlock Text="{ca:Localization Pending}" Margin="0,5,0,5"/>
+                            <ComboBox Name="pendingComboBoxFilter" SelectionChanged="pendingComboBoxFilter_SelectionChanged" IsEditable="True" IsReadOnly="True"/>
+                        </StackPanel>
+                    </Expander>
+                    <Expander Header="{ca:Localization Sorting}" ExpandDirection="Down" Margin="0,0,5,0">
+                        <StackPanel Margin="0,0,0,5">
+                            <TextBlock Text="{ca:Localization SortBy}" Margin="0,5,0,5"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="90*"/>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox Name="sort1ComboBox" Grid.Column="0" IsEditable="True" SelectionChanged="sort1ComboBox_SelectionChanged"/>
+                                <ComboBox Name="sort1KindComboBox" Grid.Column="1" SelectionChanged="sort1KindComboBox_SelectionChanged"/>
+                            </Grid>
+                            <TextBlock Text="{ca:Localization AndThen}" Margin="0,5,0,5"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="90*"/>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox Name="sort2ComboBox" Grid.Column="0" IsEditable="True" SelectionChanged="sort2ComboBox_SelectionChanged"/>
+                                <ComboBox Name="sort2KindComboBox" Grid.Column="1" SelectionChanged="sort2KindComboBox_SelectionChanged"/>
+                            </Grid>
+                            <TextBlock Text="{ca:Localization AndFinally}" Margin="0,5,0,5"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="90*"/>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox Name="sort3ComboBox" Grid.Column="0" IsEditable="True" SelectionChanged="sort3ComboBox_SelectionChanged"/>
+                                <ComboBox Name="sort3KindComboBox" Grid.Column="1" SelectionChanged="sort3KindComboBox_SelectionChanged"/>
+                            </Grid>
+                        </StackPanel>
+                    </Expander>
+                    <Expander Header="{ca:Localization Grouping}" ExpandDirection="Down" Margin="0,0,5,0" IsExpanded="False">
+                        <StackPanel Margin="0,0,0,5">
+                            <TextBlock Text="{ca:Localization GroupBy}" Margin="0,5,0,5"/>
+                            <ComboBox Name="group1ComboBox" IsEditable="True" SelectionChanged="group1ComboBox_SelectionChanged"/>
+                            <TextBlock Text="{ca:Localization AndThen}" Margin="0,5,0,5"/>
+                            <ComboBox Name="group2ComboBox" IsEditable="True" SelectionChanged="group2ComboBox_SelectionChanged"/>
+                            <TextBlock Text="{ca:Localization AndFinally}" Margin="0,5,0,5"/>
+                            <ComboBox Name="group3ComboBox" IsEditable="True" SelectionChanged="group3ComboBox_SelectionChanged"/>
+                        </StackPanel>
+                    </Expander>
+                </StackPanel>
+            </ScrollViewer>
+        </Expander>
+        <Expander ExpandDirection="Right" DockPanel.Dock="Right" Style="{DynamicResource ExpanderFilterStyle}" Padding="0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="0">
+                <DockPanel Width="180" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0,0,5,0" ClipToBounds="True">
+                    <Button Name="aboutButton" Content="{ca:Localization About}" Height="25" DockPanel.Dock="Bottom" Margin="0,0,0,5" Click="aboutButton_Click"/>
+                    <StackPanel DockPanel.Dock="Top">
+                        <Expander Header="{ca:Localization ManageDatabases}" ExpandDirection="Down" Margin="0">
+                            <StackPanel Margin="0">
+                                <TextBlock Margin="0,5,0,5" Text="{ca:Localization DatabaseName}"/>
+                                <TextBox Margin="0,0,0,5" Name="databaseTextBox" Height="23" VerticalContentAlignment="Center"/>
+                                <Button Name="loadDatabaseButton" Content="{ca:Localization Load}" Margin="0,0,0,5" Height="25" Click="loadDatabaseButton_Click"/>
+                                <Button Name="deleteDatabaseButton" Content="{ca:Localization Delete}" Margin="0,0,0,5" Height="25" Click="deleteDatabaseButton_Click"/>
+                                <Button Name="viewExistingFilesButton" Content="{ca:Localization ViewExisting}" Margin="0,0,0,5" Height="25" Click="viewExistingFilesButton_Click"/>
+                            </StackPanel>
+                        </Expander>
+                        <Expander Header="{ca:Localization AppConfig}" ExpandDirection="Down" Margin="0">
+                            <StackPanel Margin="0">
+                                <TextBlock Margin="0,5,0,5" Text="{ca:Localization Language}"/>
+                                <ComboBox Name="languageComboBox" IsEditable="True" IsReadOnly="True" SelectionChanged="languageComboBox_SelectionChanged"/>
+                            </StackPanel>
+                        </Expander>
+                    </StackPanel>
+                </DockPanel>
+            </ScrollViewer>
+        </Expander>
+        <DockPanel Margin="0,0,0,5">
+            <Expander Header="{ca:Localization Actions}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,5,0,15" IsExpanded="True" DockPanel.Dock="Top">
+                <DockPanel>
+                    <WrapPanel DockPanel.Dock="Top">
+                        <ItemsControl Width="110" Style="{DynamicResource movementEditingControl}" Focusable="False">
+                            <TextBlock Grid.Row="0" Text="{ca:Localization Date}" Padding="0,5,5,5"/>
+                            <ContentControl Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Name="dateWarning" Style="{DynamicResource ValidationIcon}" Height="15" Width="15" Visibility="Hidden" Focusable="False"/>
+                            <DatePicker Grid.Row="1" Grid.ColumnSpan="2" x:Name="datePicker" VerticalAlignment="Top" FirstDayOfWeek="Monday" LostFocus="datePicker_LostFocus"/>
+                        </ItemsControl>
+                        <ItemsControl Width="160" Style="{DynamicResource movementEditingControl}" Focusable="False">
+                            <TextBlock Text="{ca:Localization Account}" Padding="0,5,5,5"/>
+                            <ContentControl Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Name="accountWarning" Style="{DynamicResource ValidationIcon}" Height="15" Width="15" Visibility="Hidden" Focusable="False"/>
+                            <ComboBox Grid.Row="1" Grid.ColumnSpan="2" x:Name="accountComboBox" VerticalAlignment="Top" IsEditable="True"
+                                  DropDownClosed="accountComboBox_DropDownClosed" SelectionChanged="accountComboBox_SelectionChanged" LostFocus="accountComboBox_LostFocus"
+                                  TextSearch.TextPath="Name" IsTextSearchEnabled="True" DropDownOpened="accountComboBox_DropDownOpened">
+                                <ComboBox.BindingGroup>
+                                    <BindingGroup Name="accountBindingGroup">
+                                        <BindingGroup.ValidationRules/>
+                                    </BindingGroup>
+                                </ComboBox.BindingGroup>
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid MinWidth="200" MaxWidth="600">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="30"/>
+                                            </Grid.ColumnDefinitions>
+                                            <ContentControl x:Name="deleteAccountButton" Style="{DynamicResource DeleteIcon}" Height="16" Width="16" Grid.Column="0" Cursor="Hand" MouseLeftButtonDown="deleteAccountButton_MouseLeftButtonDown" StylusDown="deleteAccountButton_StylusDown"/>
+                                            <TextBox Grid.Column="1" Margin="5,0,0,0" LostFocus="TemplateEditableTextBox_LostFocus">
+                                                <TextBox.Text>
+                                                    <Binding BindingGroupName="accountBindingGroup" Path="Name" UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding.ValidationRules>
+                                                            <ca:EmptyTextValidationRule/>
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                            </TextBox>
+                                            <ContentControl Style="{DynamicResource GrabIcon}" Grid.Column="2" Height="16" Opacity=".5"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </ItemsControl>
+                        <ItemsControl Width="90" Style="{DynamicResource movementEditingControl}" Focusable="False">
+                            <TextBlock Text="{ca:Localization Type}" Padding="0,5,5,5"/>
+                            <ContentControl Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Name="typeWarning" Style="{DynamicResource ValidationIcon}" Height="15" Width="15" Visibility="Hidden" Focusable="False"/>
+                            <ComboBox Grid.Row="1" Grid.ColumnSpan="2" x:Name="typeComboBox" VerticalAlignment="Top" IsEditable="True" IsReadOnly="True" LostFocus="typeComboBox_LostFocus" SelectionChanged="typeComboBox_SelectionChanged"/>
+                        </ItemsControl>
+                        <ItemsControl Width="280" Style="{DynamicResource movementEditingControl}" Focusable="False">
+                            <TextBlock Text="{ca:Localization Category}" Padding="0,5,5,5"/>
+                            <ContentControl Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Name="categoryWarning" Style="{DynamicResource ValidationIcon}" Height="15" Width="15" Visibility="Hidden" Focusable="False"/>
+                            <ComboBox Grid.Row="1" Grid.ColumnSpan="2" x:Name="categoryComboBox" VerticalAlignment="Top" IsEditable="True"
+                                TextSearch.TextPath="Name" IsTextSearchEnabled="True" DropDownClosed="categoryComboBox_DropDownClosed" SelectionChanged="categoryComboBox_SelectionChanged" LostFocus="categoryComboBox_LostFocus"
+                                DropDownOpened="categoryComboBox_DropDownOpened">
+                                <ComboBox.BindingGroup>
+                                    <BindingGroup Name="categoryBindingGroup">
+                                        <BindingGroup.ValidationRules/>
+                                    </BindingGroup>
+                                </ComboBox.BindingGroup>
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid MinWidth="400" MaxWidth="600">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="4*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="1*" MinWidth="30"/>
+                                                <ColumnDefinition Width="30"/>
+                                            </Grid.ColumnDefinitions>
+                                            <ContentControl x:Name="deleteCategoryButton" Style="{DynamicResource DeleteIcon}" Height="16" Width="16" Grid.Column="0" Cursor="Hand" MouseLeftButtonDown="deleteCategoryButton_MouseLeftButtonDown" StylusDown="deleteCategoryButton_StylusDown"/>
+                                            <TextBlock Grid.Column="1" Margin="5,0,0,0" Text="{ca:Localization Name}"/>
+                                            <TextBox Grid.Column="2" Margin="5,0,0,0" LostFocus="TemplateEditableTextBox_LostFocus">
+                                                <TextBox.Text>
+                                                    <Binding BindingGroupName="categoryBindingGroup" Path="Name" UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding.ValidationRules>
+                                                            <ca:EmptyTextValidationRule/>
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                            </TextBox>
+                                            <TextBlock Grid.Column="3" Margin="5,0,0,0" Text="{ca:Localization TaxPercentage}"/>
+                                            <TextBox Grid.Column="4" Margin="5,0,0,0" TextAlignment="Right" LostFocus="TaxPercentageTextBox_LostFocus" TextChanged="TaxPercentageTextBox_TextChanged" PreviewTextInput="TaxPercentageTextBox_PreviewTextInput" DataObject.Pasting="TaxPercentageTextBox_Pasting">
+                                                <TextBox.Text>
+                                                    <Binding BindingGroupName="categoryBindingGroup" Path="TaxPercentage" UpdateSourceTrigger="LostFocus">
+                                                        <Binding.ValidationRules>
+                                                            <ca:EmptyTextValidationRule/>
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                            </TextBox>
+                                            <ContentControl Style="{DynamicResource GrabIcon}" Grid.Column="5" Height="16" Opacity=".5"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </ItemsControl>
+                        <ItemsControl Width="280" Style="{DynamicResource movementEditingControl}" Focusable="False">
+                            <TextBlock Text="{ca:Localization Subcategory}" Padding="0,5,5,5"/>
+                            <ContentControl Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Name="subcategoryWarning" Style="{DynamicResource ValidationIcon}" Height="15" Width="15" Visibility="Hidden" Focusable="False"/>
+                            <ComboBox Grid.Row="1" Grid.ColumnSpan="2" x:Name="subcategoryComboBox" VerticalAlignment="Top" IsEditable="True"
+                                      TextSearch.TextPath="Name" IsTextSearchEnabled="True" DropDownClosed="subcategoryComboBox_DropDownClosed" SelectionChanged="subcategoryComboBox_SelectionChanged" LostFocus="subcategoryComboBox_LostFocus"
+                                      DropDownOpened="subcategoryComboBox_DropDownOpened">
+                                <ComboBox.BindingGroup>
+                                    <BindingGroup Name="subcategoryBindingGroup">
+                                        <BindingGroup.ValidationRules>
+                                        </BindingGroup.ValidationRules>
+                                    </BindingGroup>
+                                </ComboBox.BindingGroup>
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid MinWidth="400" MaxWidth="600">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="4*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="1*" MinWidth="30"/>
+                                                <ColumnDefinition Width="30"/>
+                                            </Grid.ColumnDefinitions>
+                                            <ContentControl x:Name="deleteSubcategoryButton" Style="{DynamicResource DeleteIcon}" Height="16" Width="16" Grid.Column="0" Cursor="Hand" MouseLeftButtonDown="deleteSubcategoryButton_MouseLeftButtonDown" StylusDown="deleteSubcategoryButton_StylusDown"/>
+                                            <TextBlock Grid.Column="1" Margin="5,0,0,0" Text="{ca:Localization Name}"/>
+                                            <TextBox Grid.Column="2" Margin="5,0,0,0" LostFocus="TemplateEditableTextBox_LostFocus">
+                                                <TextBox.Text>
+                                                    <Binding BindingGroupName="subcategoryBindingGroup" Path="Name" UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding.ValidationRules>
+                                                            <ca:EmptyTextValidationRule/>
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                            </TextBox>
+                                            <TextBlock Grid.Column="3" Margin="5,0,0,0" Text="{ca:Localization TaxPercentage}"/>
+                                            <TextBox Grid.Column="4" Margin="5,0,0,0" TextAlignment="Right" LostFocus="TaxPercentageTextBox_LostFocus" TextChanged="TaxPercentageTextBox_TextChanged" PreviewTextInput="TaxPercentageTextBox_PreviewTextInput" DataObject.Pasting="TaxPercentageTextBox_Pasting">
+                                                <TextBox.Text>
+                                                    <Binding BindingGroupName="subcategoryBindingGroup" Path="TaxPercentage" UpdateSourceTrigger="LostFocus">
+                                                        <Binding.ValidationRules>
+                                                            <ca:EmptyTextValidationRule/>
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                            </TextBox>
+                                            <ContentControl Style="{DynamicResource GrabIcon}" Grid.Column="5" Height="16" Opacity=".5"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </ItemsControl>
+                        <ItemsControl Width="290" Style="{DynamicResource movementEditingControl}" Focusable="False">
+                            <TextBlock Text="{ca:Localization Entity}" Padding="0,5,5,5"/>
+                            <ContentControl Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Name="entityWarning" Style="{DynamicResource ValidationIcon}" Height="15" Width="15" Visibility="Hidden" Focusable="False"/>
+                            <ComboBox Grid.Row="1" Grid.ColumnSpan="2" x:Name="entityComboBox" VerticalAlignment="Top" IsEditable="True"
+                                    TextSearch.TextPath="Name" IsTextSearchEnabled="True" DropDownClosed="entityComboBox_DropDownClosed" SelectionChanged="entityComboBox_SelectionChanged" LostFocus="entityComboBox_LostFocus"
+                                    DropDownOpened="entityComboBox_DropDownOpened">
+                                <ComboBox.BindingGroup>
+                                    <BindingGroup Name="entityBindingGroup">
+                                        <BindingGroup.ValidationRules>
+                                        </BindingGroup.ValidationRules>
+                                    </BindingGroup>
+                                </ComboBox.BindingGroup>
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid MinWidth="290" MaxWidth="600">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="30"/>
+                                            </Grid.ColumnDefinitions>
+                                            <ContentControl x:Name="deleteEntityButton" Style="{DynamicResource DeleteIcon}" Height="16" Width="16" Grid.Column="0" Cursor="Hand" MouseLeftButtonDown="deleteEntityButton_MouseLeftButtonDown" StylusDown="deleteEntityButton_StylusDown"/>
+                                            <TextBox Grid.Column="1" Margin="5,0,0,0" LostFocus="TemplateEditableTextBox_LostFocus">
+                                                <TextBox.Text>
+                                                    <Binding BindingGroupName="entityBindingGroup" Path="Name" UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding.ValidationRules>
+                                                            <ca:EmptyTextValidationRule/>
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                            </TextBox>
+                                            <ContentControl Style="{DynamicResource GrabIcon}" Grid.Column="2" Height="16" Opacity=".5"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </ItemsControl>
+                        <ItemsControl Width="170" Style="{DynamicResource movementEditingControl}" Focusable="False">
+                            <TextBlock Text="{ca:Localization Person}" Padding="0,5,5,5"/>
+                            <ContentControl Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Name="personWarning" Style="{DynamicResource ValidationIcon}" Height="15" Width="15" Visibility="Hidden" Focusable="False"/>
+                            <ComboBox Grid.Row="1" Grid.ColumnSpan="2" x:Name="personComboBox" VerticalAlignment="Top" IsEditable="True"
+                                      TextSearch.TextPath="Name" IsTextSearchEnabled="True" DropDownClosed="personComboBox_DropDownClosed" SelectionChanged="personComboBox_SelectionChanged" LostFocus="personComboBox_LostFocus"
+                                      DropDownOpened="personComboBox_DropDownOpened">
+                                <ComboBox.BindingGroup>
+                                    <BindingGroup Name="personBindingGroup">
+                                        <BindingGroup.ValidationRules/>
+                                    </BindingGroup>
+                                </ComboBox.BindingGroup>
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid MinWidth="220" MaxWidth="600">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="30"/>
+                                            </Grid.ColumnDefinitions>
+                                            <ContentControl x:Name="deletePersonButton" Style="{DynamicResource DeleteIcon}" Height="16" Width="16" Grid.Column="0" Cursor="Hand" MouseLeftButtonDown="deletePersonButton_MouseLeftButtonDown" StylusDown="deletePersonButton_StylusDown"/>
+                                            <TextBox Grid.Column="1" Margin="5,0,0,0" LostFocus="TemplateEditableTextBox_LostFocus">
+                                                <TextBox.Text>
+                                                    <Binding BindingGroupName="personBindingGroup" Path="Name" UpdateSourceTrigger="PropertyChanged">
+                                                        <Binding.ValidationRules>
+                                                            <ca:EmptyTextValidationRule/>
+                                                        </Binding.ValidationRules>
+                                                    </Binding>
+                                                </TextBox.Text>
+                                            </TextBox>
+                                            <ContentControl Style="{DynamicResource GrabIcon}" Grid.Column="2" Height="16" Opacity=".5"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </ItemsControl>
+                        <ItemsControl Width="100" Style="{DynamicResource movementEditingControl}" Focusable="False">
+                            <TextBlock Text="{ca:Localization Quantity}" Padding="0,5,5,5"/>
+                            <ContentControl Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Name="quantityWarning" Style="{DynamicResource ValidationIcon}" Height="15" Width="15" Visibility="Hidden" Focusable="False"/>
+                            <TextBox Grid.Row="1" Grid.ColumnSpan="2" x:Name="quantityTextBox" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" TextAlignment="Right" VerticalContentAlignment="Center" PreviewTextInput="quantityTextBox_PreviewTextInput" TextChanged="quantityTextBox_TextChanged" LostFocus="quantityTextBox_LostFocus" DataObject.Pasting="quantityTextBox_Pasting"/>
+                        </ItemsControl>
+                        <ItemsControl Width="280" Style="{DynamicResource movementEditingControl}" Focusable="False">
+                            <TextBlock Grid.ColumnSpan="2" Text="{ca:Localization Remarks}" Padding="0,5,5,5"/>
+                            <TextBox Grid.Row="1" Grid.ColumnSpan="2" x:Name="remarksTextBox" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+                        </ItemsControl>
+                        <ItemsControl Width="80" Style="{DynamicResource movementEditingControl}" Focusable="False">
+                            <TextBlock Text="{ca:Localization Pending}" Padding="0,5,5,5"/>
+                            <ContentControl Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Name="pendingWarning" Style="{DynamicResource ValidationIcon}" Height="15" Width="15" Visibility="Hidden" Focusable="False"/>
+                            <ComboBox Grid.Row="1" Grid.ColumnSpan="2" x:Name="pendingComboBox" VerticalAlignment="Top" IsEditable="True" IsReadOnly="True" SelectionChanged="pendingComboBox_SelectionChanged" LostFocus="pendingComboBox_LostFocus"/>
+                        </ItemsControl>
+                    </WrapPanel>
+                    <Grid DockPanel.Dock="Bottom" Width="auto">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MinWidth="75" MaxWidth="130"/>
+                            <ColumnDefinition MinWidth="75" MaxWidth="130"/>
+                            <ColumnDefinition MinWidth="75" MaxWidth="130"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition MinHeight="35"/>
+                        </Grid.RowDefinitions>
+                        <Button Margin="0,10,10,0" Grid.Column="0" x:Name="addButton" Content="{ca:Localization Add}" Click="addButton_Click"/>
+                        <Button Margin="0,10,10,0" Grid.Column="1" x:Name="modifyButton" Content="{ca:Localization Modify}" Click="modifyButton_Click"/>
+                        <Button Margin="0,10,10,0" Grid.Column="2" x:Name="removeButton" Content="{ca:Localization Remove}" Click="removeButton_Click"/>
+                        <Button Margin="10,10,0,0" Grid.Column="3" x:Name="expandGroupsButton" Content="{ca:Localization Expand}" HorizontalAlignment="Right" MinWidth="70" ToolTip="{ca:Localization ExpandToolTip}" Click="expandGroupsButton_Click"/>
+                        <Button Margin="10,10,0,0" Grid.Column="4" x:Name="collapseGroupsButton" Content="{ca:Localization Collapse}" HorizontalAlignment="Right" MinWidth="70" ToolTip="{ca:Localization CollapseToolTip}" Click="collapseGroupsButton_Click"/>
+                        <Button Margin="10,10,0,0" Grid.Column="5" x:Name="copyToClipboardButton" Content="{ca:Localization CopyAll}" HorizontalAlignment="Right" MinWidth="70" ToolTip="{ca:Localization CopyAllToolTip}" Click="copyToClipboardButton_Click"/>
+                    </Grid>
+                </DockPanel>
+            </Expander>
+            <DataGrid Name="dataGrid" CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserSortColumns="True"
+                      AutoGenerateColumns="False" ClipToBounds="True" CurrentCellChanged="dataGrid_CurrentCellChanged" 
+                      CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" RowHeaderWidth="35" IsReadOnly="True" Sorting="dataGrid_Sorting" Background="Transparent" Grid.IsSharedSizeScope="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="{ca:Localization Id}" Binding="{Binding Id}" CanUserSort="False">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Right"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="{ca:Localization Date}" Binding="{Binding Date, Converter={StaticResource dateCultureConverter}}"/>
+                    <DataGridTextColumn Header="{ca:Localization Account}" Binding="{Binding Account.Name}"/>
+                    <DataGridTextColumn Header="{ca:Localization Type}" Binding="{Binding MovementType.Name}"/>
+                    <DataGridTextColumn Header="{ca:Localization Category}" Binding="{Binding MovementCategory.Name}"/>
+                    <DataGridTextColumn Header="{ca:Localization Subcategory}" Binding="{Binding MovementSubcategory.Name}"/>
+                    <DataGridTextColumn Header="{ca:Localization Entity}" Binding="{Binding Entity.Name}"/>
+                    <DataGridTextColumn Header="{ca:Localization Person}" Binding="{Binding Person.Name}"/>
+                    <DataGridTextColumn Header="{ca:Localization Quantity}" Binding="{Binding Quantity, Converter={StaticResource decimalCultureConverter}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="{Binding QuantityBrush}"/>
+                                <Setter Property="FontWeight" Value="{Binding QuantityFontWeight}"/>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Right"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="{ca:Localization QuantityWithoutTax}" Binding="{Binding QuantityWithoutTax, Converter={StaticResource decimalCultureConverter}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="{Binding QuantityWithoutTaxBrush}"/>
+                                <Setter Property="FontWeight" Value="{Binding QuantityWithoutTaxFontWeight}"/>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Right"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="{ca:Localization Remarks}" Binding="{Binding Remarks}" Width="*"/>
+                    <DataGridCheckBoxColumn Header="{ca:Localization PendingAbbreviation}" Binding="{Binding Pending}"/>
+                </DataGrid.Columns>
+
+                <DataGrid.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="{x:Type GroupItem}" BasedOn="{StaticResource GroupStyle}">
+                                <Setter Property="Background" Value="#cccccc"/>
+                                <Setter Property="Margin" Value="0"/>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="{x:Type GroupItem}" BasedOn="{StaticResource GroupStyle}">
+                                <Setter Property="Background" Value="#dddddd"/>
+                                <Setter Property="Margin" Value="5,0,0,0"/>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="{x:Type GroupItem}" BasedOn="{StaticResource GroupStyle}">
+                                <Setter Property="Background" Value="#ededed"/>
+                                <Setter Property="Margin" Value="5,0,0,0"/>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                </DataGrid.GroupStyle>
+            </DataGrid>
+        </DockPanel>
+
+    </DockPanel>
+
+</Window>

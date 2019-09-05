@@ -1,0 +1,43 @@
+﻿<!--
+    This file is part of Choco Accounting.
+
+    Choco Accounting is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Choco Accounting is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Choco Accounting. If not, see <http://www.gnu.org/licenses/>.
+-->
+<Window x:Class="ChocoAccounting.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ca="clr-namespace:ChocoAccounting"
+        mc:Ignorable="d"
+        Title="{ca:Localization About_Title}" Height="430" Width="385" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" WindowStyle="ToolWindow">
+    <StackPanel Margin="15,10,15,10">
+        <DockPanel Margin="0,5,0,0">
+            <ContentControl DockPanel.Dock="Left" x:Name="logo" Style="{DynamicResource AppIcon}" Height="50" Margin="0,0,0,5" Focusable="False" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+            <StackPanel DockPanel.Dock="Right" Margin="12,0,0,0">
+                <TextBlock HorizontalAlignment="Left" FontWeight="Bold" Text="{ca:Localization AppTitle}"/>
+                <TextBlock HorizontalAlignment="Left" Text="{ca:Localization About_AppSubtitle}"/>
+            </StackPanel>
+        </DockPanel>
+        <TextBlock HorizontalAlignment="Left" Margin="0,10,0,5" Text="{ca:Localization About_DevelopedBy}"/>
+        <TextBlock HorizontalAlignment="Left">Javier Míguez Lalín</TextBlock>
+        <TextBlock HorizontalAlignment="Left">Miguel Anxo Figueirido Prado</TextBlock>
+        <TextBlock FontSize="10" TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" Margin="0,15,0,0" Text="{ca:Localization About_GNULabel}"/>
+        <TextBox FontSize="10" Margin="0,5,0,0" Height="100" xml:space="preserve" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{ca:Localization About_GNUText}"/>
+        <TextBlock FontSize="10" FontWeight="DemiBold" TextWrapping="WrapWithOverflow" HorizontalAlignment="Left" Margin="0,10,0,0" Text="{ca:Localization About_ConsiderDonatingLabel}"/>
+        <TextBlock FontSize="12" HorizontalAlignment="Center" Margin="0,9,0,0"><Hyperlink NavigateUri="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=293FW8DANH4DJ" RequestNavigate="Hyperlink_RequestNavigate"><TextBlock Text="{ca:Localization About_DonateLink}"/></Hyperlink></TextBlock>
+        <TextBlock FontSize="12" HorizontalAlignment="Center" Margin="0,5,0,0"><Hyperlink NavigateUri="https://chocoaccounting.wordpress.com/" RequestNavigate="Hyperlink_RequestNavigate"><TextBlock Text="{ca:Localization About_WebsiteLink}"/></Hyperlink></TextBlock>
+        <TextBlock FontSize="12" HorizontalAlignment="Center" Margin="0,5,0,0"><Hyperlink NavigateUri="https://bitbucket.org/mfigueirido/choco-accounting/overview" RequestNavigate="Hyperlink_RequestNavigate"><TextBlock Text="{ca:Localization About_SourceCodeLink}"/></Hyperlink></TextBlock>
+    </StackPanel>
+</Window>
