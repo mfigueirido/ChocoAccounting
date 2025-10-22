@@ -20,11 +20,7 @@ This project was initiated with two goals in mind:
 - Develop it as a learning exercise to get practice in Windows
 Presentation Foundation and Entity Framework.
 
-Because of our previous inexperience on those technologies and a tight 
-schedule, we have done some things that are functional but infringe 
-the model-view-viewmodel pattern WPF is based upon. On top of that,
-some glaring limitations of the EF made us take a hacky approach to 
-some database operations.
+NOTE ON COMMIT HISTORY
 
-Despite this problems we learnt a lot and achieved what we were sent 
-out to. If you feel like it, we encourage you to improve the code.
+This project was migrated from a private Bitbucket repository.
+The commit history prior to the migration is not available on GitHub.
